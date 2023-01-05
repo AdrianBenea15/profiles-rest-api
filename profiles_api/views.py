@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework import viewsets
 
 from profiles_api import serializers
-
+from profiles_api import models
 
 class HelloApiView(APIView):
     """Test API View"""
@@ -14,9 +14,9 @@ class HelloApiView(APIView):
     def get(self, request, format=None):
         """Return a list of APIView features"""
         an_apiview = [
-        'Uses HTTP methods as functioon (get, post, patch, put, delete)',
+        'Uses HTTP methods as functions (get, post, patch, put, delete)',
         'Is similar to a traditional Django View',
-        'Gives you the mos control over your application logic',
+        'Gives you the most control over your application logic',
         'Is mapped manually to URLs',
         ]
 
@@ -91,3 +91,9 @@ class HelloViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         """Handle removing an object"""
         return Response({'http_method': 'DELETE'})
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating and updating profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
